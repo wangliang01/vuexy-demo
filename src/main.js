@@ -16,8 +16,5 @@ const app = createApp(App)
 // Register plugins
 registerPlugins(app)
 
-// 作一点测试
-console.log('测试')
-
 // Mount vue app
 app.mount('#app')
