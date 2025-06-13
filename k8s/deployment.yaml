@@ -5,6 +5,17 @@ metadata:
   name: vuexy        # Deployment 的名称
 spec:
   replicas: 3        # 副本数，运行 1 个 Pod
+  revisionHistoryLimit: 3 # 保留的旧版本数量
+  strategy:
+    canary:
+      steps:
+        - pause: {}  # 在开发，测试环境，不需要暂停， 在生产环境需要暂停
+        - setWeight: 100
+        # Refer to https://argo-rollouts.readthedocs.io/en/stable/features/canary/
+        # Example:
+        # - pause: {}
+        # - setWeight: 33
+      # - pause: { duration: 10s }
   selector:
     matchLabels:
       app: vuexy     # 选择标签，和下面 template 的 labels 匹配
