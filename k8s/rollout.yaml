@@ -1,0 +1,32 @@
+# k8s/rollout.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: vuexy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: vuexy
+  template:
+    metadata:
+      labels:
+        app: vuexy
+    spec:
+      containers:
+        - name: vuexy
+          image: vuexy:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+  strategy:
+    canary:
+      steps:
+        - pause: {}  # 在开发，测试环境，不需要暂停， 在生产环境需要暂停
+        - setWeight: 100
+        # Refer to https://argo-rollouts.readthedocs.io/en/stable/features/canary/
+        # Example:
+        # - pause: {}
+        # - setWeight: 33
+      # - pause: { duration: 10s }
