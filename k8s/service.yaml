@@ -1,12 +1,13 @@
-apiVersion: v1
-kind: Service
+# Service 资源定义，用于暴露 vuexy 应用的访问端口
+apiVersion: v1         # API 版本，Service 属于 v1
+kind: Service          # 资源类型，这里是 Service
 metadata:
-  name: vuexy
+  name: vuexy          # Service 的名称
 spec:
-  type: NodePort
+  type: NodePort       # Service 类型，NodePort 允许外部通过节点IP+端口访问
   selector:
-    app: vuexy
+    app: vuexy         # 选择标签，关联到 app=vuexy 的 Pod
   ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30080 
+    - port: 80         # Service 暴露的端口（集群内访问）
+      targetPort: 80   # 转发到 Pod 的端口
+      nodePort: 30080  # 集群节点对外暴露的端口（外部访问用） 
