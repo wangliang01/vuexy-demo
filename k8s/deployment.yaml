@@ -4,7 +4,7 @@ kind: Deployment     # 资源类型，这里是 Deployment
 metadata:
   name: vuexy        # Deployment 的名称
 spec:
-  replicas: 3        # 副本数，运行 1 个 Pod
+  replicas: 1        # 副本数，运行 1 个 Pod
   revisionHistoryLimit: 3 # 保留的旧版本数量
   strategy:
     canary:
